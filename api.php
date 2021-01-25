@@ -33,9 +33,9 @@ class C implements M{
     public function get($tablename,$fileds="*",$where){
         $conn=C::conn();
         if($where==NULL||$where==""){
-        $qsql="SELECT * FROM `".$tablename."`";
+        $qsql="SELECT $fileds FROM `$tablename`";
         }else{
-          $qsql="SELECT * FROM `$tablename` where $where"; 
+          $qsql="SELECT $fileds FROM `$tablename` where $where"; 
         }
         $qEof=$conn->query($qsql);
         $i=0;
