@@ -163,7 +163,7 @@ class C implements M{
     $appid=""; //APPID 
     $secret=""; //APPsecret
     $url="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$appid."&secret=".$secret;
-    $token=C::http_post_json($url);
+    $token=C::api_post($url);
     $ttken=$token[1]; 
     $tokenz=json_decode($ttken,true);
     $token=$tokenz["access_token"]; //获得token
