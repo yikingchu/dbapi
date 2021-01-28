@@ -86,6 +86,7 @@ class C implements M{
           }else{
               $cub.="`$key`='$value',";
           }
+            $i++;
         }
         $usql="UPDATE `$tablename` SET $cub WHERE $where";
          if($conn->query($usql)){
