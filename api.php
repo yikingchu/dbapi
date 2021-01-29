@@ -180,29 +180,29 @@ class C implements M{
     }//调用时，请到调用界面无任何html元素直接调用即可 ,头部需用 ：  header("Content-type: image/jpeg");
 }
 
-public function toexcel($arr=[0=>[0=>'value',],]){
-// $arr为无组名数组
-//输出的文件类型为excel  
-header("Content-type:application/vnd.ms-excel");  
-//提示下载  
-header("Content-Disposition:attachement;filename=SK_".date("Ymd").".xls");  
-//报表数据  
-$ReportArr = $arr;  
-$ReportContent = '';  
-$num1 = count($ReportArr);  
-for($i=0;$i<$num1;$i++){  
-    $num2 = count($ReportArr[$i]);  
-    for($j=0;$j<$num2;$j++){  
-        //ecxel都是一格一格的，用\t将每一行的数据连接起来  
-        $ReportContent .= '"'.$ReportArr[$i][$j].'"'."\t";  
+    function toexcel($arr=[0=>[0=>'value',],],$excelname){
+    // $arr为无组名数组
+    //输出的文件类型为excel  
+    header("Content-type:application/vnd.ms-excel");  
+    //提示下载  
+    header("Content-Disposition:attachement;filename=".$excelname.".xls");  
+    //报表数据  
+    $ReportArr = $arr;  
+    $ReportContent = '';  
+    $num1 = count($ReportArr);  
+    for($i=0;$i<$num1;$i++){  
+        $num2 = count($ReportArr[$i]);  
+        for($j=0;$j<$num2;$j++){  
+            //ecxel都是一格一格的，用\t将每一行的数据连接起来  
+            $ReportContent .= '"'.(string)$ReportArr[$i][$j].'"'."\t";  
+        }  
+        //最后连接\n 表示换行  
+        $ReportContent .= "\n";  
     }  
-    //最后连接\n 表示换行  
-    $ReportContent .= "\n";  
-}  
-//用的utf-8 最后转换一个编码为gb  
-// $ReportContent = mb_convert_encoding($ReportContent,"gb2312","utf-8");  
-//输出即提示下载  
-echo $ReportContent;  
-}
+    //用的utf-8 最后转换一个编码为gb  
+    // $ReportContent = mb_convert_encoding($ReportContent,"gb2312","utf-8");  
+    //输出即提示下载  
+    echo $ReportContent;  
+    }
 
 ?>
