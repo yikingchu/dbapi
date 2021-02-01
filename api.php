@@ -70,7 +70,7 @@ class C implements M{
                 $cb.="'".$cvalue[$j]."',";
             }
         }
-        $isql="INSERT INTO `zuyi_sckfb_cglkfx` ($ct) VALUES ($cb)";
+        $isql="INSERT INTO `$tablename` ($ct) VALUES ($cb)";
         if($conn->query($isql)){
             return 1; //插入成功
         }else{
