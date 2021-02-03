@@ -39,12 +39,14 @@ class C implements M{
           $qsql="SELECT $fileds FROM `$tablename` where $where"; 
         }
         $qEof=$conn->query($qsql);
+         if($qEof->num_rows>0){ //优化有值的情况下再进行数据你懂的
         $i=0;
         while($qq=$qEof->fetch_assoc()){
             $q[$i]=$qq;
             $i++;
         }
         return $q;
+         }
     }//查询数据库
     public function insert($tablename,$arr=["point"=>"value"]){
         $conn=C::conn();
