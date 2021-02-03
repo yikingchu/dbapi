@@ -16,7 +16,7 @@ interface M
     public function smssend($tel,$content); //短信发送指定手机及内容
     public function http_post_json_qcoder($url,$data); //微信请求小程序二维码特定请求
     public function getqcoder($path);//调用时，请到调用界面无任何html元素直接调用即可
-    public function toexcel($arr=[0=>[0=>'value',],]); //Excel导出
+    public function toexcel($arr=[0=>[0=>'value',],],$excelname); //Excel导出
 }
 class C implements M{
     public function conn(){
@@ -180,9 +180,9 @@ class C implements M{
     $c=C::http_post_json_qcoder($tourl,$data);
     return $c[1];
     }//调用时，请到调用界面无任何html元素直接调用即可 ,头部需用 ：  header("Content-type: image/jpeg");
-}
 
-    function toexcel($arr=[0=>[0=>'value',],],$excelname){
+
+    public function toexcel($arr=[0=>[0=>'value',],],$excelname){
     // $arr为无组名数组
     //输出的文件类型为excel  
     header("Content-type:application/vnd.ms-excel");  
@@ -206,5 +206,8 @@ class C implements M{
     //输出即提示下载  
     echo $ReportContent;  
     }
+    
+}
+ 
 
 ?>
