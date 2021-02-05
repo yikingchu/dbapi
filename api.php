@@ -17,6 +17,7 @@ interface M
     public function http_post_json_qcoder($url,$data); //微信请求小程序二维码特定请求
     public function getqcoder($path);//调用时，请到调用界面无任何html元素直接调用即可
     public function toexcel($arr=[0=>[0=>'value',],],$excelname); //Excel导出
+    public function upfile($cfile); //文件上传
 }
 class C implements M{
     public function conn(){
@@ -205,6 +206,40 @@ class C implements M{
     // $ReportContent = mb_convert_encoding($ReportContent,"gb2312","utf-8");  
     //输出即提示下载  
     echo $ReportContent;  
+    }
+    public function upfile($cfile){ //$cfile为前端post时的表单名称 以及form需增加enctype="multipart/form-data" 以及不同环境需要修改其上传路径
+    $allowedExts = array("gif", "jpeg", "jpg", "png");
+    $temp = explode(".", $_FILES[$cfile]["name"]);
+    $extension = end($temp);     // 获取文件后缀名
+    if ((($_FILES[$cfile]["type"] == "image/gif")
+|| ($_FILES[$cfile]["type"] == "image/jpeg")
+|| ($_FILES[$cfile]["type"] == "image/jpg")
+|| ($_FILES[$cfile]["type"] == "image/pjpeg")
+|| ($_FILES[$cfile]["type"] == "image/x-png")
+|| ($_FILES[$cfile]["type"] == "image/png"))
+&& ($_FILES[$cfile]["size"] < 204800)   // 小于 200 kb
+&& in_array($extension, $allowedExts))
+{
+     echo "aaa";
+    if ($_FILES[$cfile]["error"] > 0)
+    {
+         
+    }
+    else
+    {
+        if (file_exists("/cocoapp/file/" . $_FILES[$cfile]["name"]))
+        {
+            echo $_FILES[$cfile]["name"] . " 文件已经存在。 ";
+        }
+        else
+        {
+            $cocofilein=time().rand(999,10000).".".str_replace("image/", "",$_FILES[$cfile]["type"]);
+             move_uploaded_file($_FILES[$cfile]["tmp_name"], "D:/wwwroot/temp/cocoapp/file/" . $cocofilein);
+            $cocofile= "/cocoapp/file/".$cocofilein;
+        }
+    }
+    return  $cocofile;
+}
     }
     
 }
