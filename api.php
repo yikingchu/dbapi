@@ -68,9 +68,19 @@ class C implements M{
         }
          for($j=0;$j<$i;$j++){
          if($j+1==$i){
+            //    $cb.="'".$cvalue[$j]."'";
+                if($cvalue[$j]==NULL){
+                   $cb.="NULL";
+                }else{
                 $cb.="'".$cvalue[$j]."'";
+                }
             }else{
+             //   $cb.="'".$cvalue[$j]."',";
+              if($cvalue[$j]==NULL){
+                   $cb.="NULL,";
+                }else{
                 $cb.="'".$cvalue[$j]."',";
+                }
             }
         }
         $isql="INSERT INTO `$tablename` ($ct) VALUES ($cb)";
